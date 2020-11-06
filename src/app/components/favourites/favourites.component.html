@@ -1,0 +1,99 @@
+<app-dashboard></app-dashboard>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <h1 class="h1" style="padding: 10px 0px">Favourite Contacts</h1>
+    <div class="table-responsive">
+      <input class="form-control w-80 h6" type="text" placeholder="Search contact" aria-label="Search" [(ngModel)]="searchText2" style="width:80%">
+      <table class="table" style="width:80%">
+        <thead class="thead-dark">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th style="width: 20%;">Actions</th>
+                <th class="text-center">Favourite</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr class="h6" *ngFor="let contact of contactList$ | async | filter: searchText2 ">
+              <ng-container *ngIf="contact.favourite">
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>
+                  <button style="margin: 2px" class="btn btn-sm btn-outline-warning" type="button" data-toggle="modal" 
+                           data-target="#FavouriteContactModal" (click)="addFavourite(contact)">
+                    <span> 
+                      <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>  
+                    </span>
+                  </button>
+                  <button style="margin: 2px" class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" data-target="#editContactModal" (click)="getSelectedContact(contact)">Edit</button>
+                </td>
+                <td *ngIf="contact.favourite" class="text-center">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="crimson" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                  </svg>
+                </td>
+              </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+<button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#addFavouriteContactModal">
+  Add Favourite
+</button>
+
+<div class="modal fade" id="addFavouriteContactModal" tabindex="-1" role="dialog" aria-labelledby="addFavouriteContactModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFavouriteContactModal">Add new contact</h5> 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <tr class="h6" *ngFor="let contact of contactList$ | async | filter: searchText2 " style="display: flex;">
+            <p style="width:100%">{{ contact.name }}</p>
+            <td *ngIf="!contact.favourite">
+                <button class="btn btn-outline-warning text-center" type="button" (click)="addFavourite(contact)">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>  
+                </button>
+            </td>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="modal fade" id="editContactModal" tabindex="-1" role="dialog" aria-labelledby="editContactModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editContactModal">Are you sure you want to delete the selected contact?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="saveEditContact()" [formGroup]="contactFormEditFav" ngNativeValidate>
+          <label for="contactName" class="h6">Name</label>
+          <input style="margin-bottom: 5px;" class="form-control" type="text" formControlName="name" placeholder="Enter name" name="contactName" required>
+          <label for="contactEmail" class="h6">Email address</label>
+          <input style="margin-bottom: 5px;" class="form-control" type="email" formControlName="email" placeholder="Enter email" name="contactEmail" required>
+          <label for="contactPhone" class="h6">Phone Number</label>
+          <input style="margin-bottom: 5px;" class="form-control" type="phone" formControlName="phone" placeholder="Enter phone" name="contactPhone" required>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" >Close</button>
+            <button class="btn btn-outline-success" type="submit" id="editContact" [disabled]="contactFormEditFav.invalid">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

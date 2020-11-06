@@ -1,0 +1,63 @@
+
+          <div *ngIf="isAuthenticated; then doSomething; else doSomethingElse;"></div>
+
+
+
+          <ng-template #doSomething>
+            <div class="special">
+              <div class="special2 text-center">
+              <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+                <header class="masthead mb-auto">
+                  <div class="inner">
+                    <h3 class="masthead-brand">Challenge App</h3>
+                    
+                  </div>
+                </header>
+              
+                <main role="main" class="inner cover">
+                  <h1 class="cover-heading">Nice Job!</h1>
+                  <p class="lead">Now lets explore the awesome features!</p>
+                    <a  class="btn btn-lg btn-secondary" [routerLink]="['/contacts']">Go To Contact List</a>
+                  
+                </main>
+              
+                <footer class="mastfoot mt-auto">
+                  <div class="inner">
+                    <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>.</p>
+                  </div>
+                </footer>
+              </div>
+              </div>
+              </div>
+          </ng-template>
+
+
+
+          <ng-template #doSomethingElse>
+            <div class="special">
+              <div class="special2 text-center">
+              <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+                <header class="masthead mb-auto">
+                  <div class="inner">
+                    <h3 class="masthead-brand">Challenge App</h3>
+                    
+                  </div>
+                </header>
+              
+                <main role="main" class="inner cover">
+                  <h1 class="cover-heading">This is my Contacts App</h1>
+                  <p class="lead">Start using the app by signing up. Enjoy the features :).</p>
+                    <a  class="btn btn-lg btn-secondary" [routerLink]="['/sign-up']">Sign Up</a>
+                  
+                </main>
+              
+                <footer class="mastfoot mt-auto">
+                  <div class="inner">
+                    <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>.</p>
+                  </div>
+                </footer>
+              </div>
+              </div>
+              </div>
+          </ng-template>
+      

@@ -1,0 +1,40 @@
+<div class="text-center" style="margin-top: 5%;">
+    <form class="form-signin" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <h1 class="h1 mb-3 font-weight-bold">Please Log In</h1>
+        <h6>Email : test@test.com</h6>
+        <h6>Password: test</h6>
+        <label class="sr-only" for="email">Email</label>
+        <input
+          [(ngModel)]="user.email"
+          name="email"
+          type="email"
+          required
+          class="form-control"
+          id="email"
+          placeholder="Email address"
+          autofocus>
+        <label class="sr-only" for="password">Password</label>
+        <input
+          [(ngModel)]="user.password"
+          name="password"
+          type="password"
+          required
+          class="form-control"
+          id="password"
+          placeholder="Password">
+          <div *ngIf="errorMessage">
+            <div class="alert alert-danger" role="alert">
+              {{errorMessage}}
+            </div>
+          </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+      <a [routerLink]="['/']" class="btn btn-danger btn-block">Cancel</a>
+      <h6>
+        <span>Don't have an account?&nbsp;</span>
+        <a [routerLink]="['/sign-up']">Sign up!</a>
+      </h6>
+    </form>
+    
+  </div>
+
+
