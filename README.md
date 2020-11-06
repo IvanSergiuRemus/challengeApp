@@ -3,7 +3,7 @@
 
 1. Fork/Clone
 2. Install Dependencies - npm install
-3. Run - npm start
+3. Run - ng serve -o
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
